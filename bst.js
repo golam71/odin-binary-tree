@@ -34,10 +34,9 @@ class Tree {
   }
 
   depth(value) {
-    let depthOfNode = 1;
-    let root = this.root;
+    let depthOfNode = 0;
 
-    function findDepth(value, node = root) {
+    function findDepth(value, node) {
       if (node === null) return null;
 
       if (value < node.data) {
@@ -46,13 +45,14 @@ class Tree {
       } else if (value > node.data) {
         depthOfNode++;
         return findDepth(value, node.right);
-      }
-      if (value === node.data) {
+      } else if (value === node.data) {
         return depthOfNode;
       }
+
       return null;
     }
-    return findDepth(value);
+
+    return findDepth(value, this.root);
   }
 
   deleteItem(node = this.root, value) {
