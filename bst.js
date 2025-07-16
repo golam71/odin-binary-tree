@@ -8,8 +8,7 @@ class Node {
 
 class Tree {
   constructor(array) {
-    this.root = null;
-    this.buildTree(array);
+    this.root = this.buildTree(array);
   }
 
   insert(node, newNode) {
@@ -23,10 +22,24 @@ class Tree {
   }
 
   buildTree(array) {
-    for (const item of array) {
-      const newNode = new Node(item);
-      if (this.root === null) this.root = newNode;
-      else this.insert(this.root, newNode);
+    const sorted = [...new Set(array)].sort((a, b) => a - b);
+
+    function buildRecursive(arr) {
+      if (!arr.length) return null;
+
+      const mid = Math.floor(arr.length / 2);
+      const node = new Node(arr[mid]);
+
+      node.left = buildRecursive(arr.slice(0, mid));
+      node.right = buildRecursive(arr.slice(mid + 1));
+
+      return node;
     }
+
+    return buildRecursive(sorted);
   }
 }
+
+const root = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+
+console.log(root);
