@@ -137,6 +137,32 @@ class Tree {
       if (node.right) queue.push(node.right);
     }
   }
+  inOrderForEach(callback, node = this.root) {
+    if (typeof callback !== "function") throw new Error("Callback required");
+    if (node === null) return;
+
+    this.inOrderForEach(callback, node.left);
+    callback(node);
+    this.inOrderForEach(callback, node.right);
+  }
+
+  preOrderForEach(callback, node = this.root) {
+    if (typeof callback !== "function") throw new Error("Callback required");
+    if (node === null) return;
+
+    callback(node);
+    this.preOrderForEach(callback, node.left);
+    this.preOrderForEach(callback, node.right);
+  }
+
+  postOrderForEach(callback, node = this.root) {
+    if (typeof callback !== "function") throw new Error("Callback required");
+    if (node === null) return;
+
+    this.postOrderForEach(callback, node.left);
+    this.postOrderForEach(callback, node.right);
+    callback(node);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
