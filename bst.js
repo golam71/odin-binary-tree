@@ -55,6 +55,29 @@ class Tree {
     return findDepth(value, this.root);
   }
 
+  height(value) {
+    let node = this.find(value);
+    if (node.right == null && node.left == null) {
+      return 0;
+    }
+    function calcHeight(node) {
+      if (node === null) return -1;
+      const leftHeight = calcHeight(node.left);
+      const rightHeight = calcHeight(node.right);
+      return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    return calcHeight(node);
+  }
+  insert(value) {
+    const newNode = new Node(value);
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertValue(this.root, newNode);
+    }
+  }
+
   deleteItem(node = this.root, value) {
     if (node === null) return null;
 
@@ -119,4 +142,4 @@ prettyPrint(tree.root);
 // tree.deleteItem(tree.root, 8);
 // prettyPrint(tree.root);
 
-console.log(tree.depth(1));
+console.log(tree.height(8));
