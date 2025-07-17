@@ -181,5 +181,11 @@ prettyPrint(tree.root);
 // console.log("---------------------");
 // tree.deleteItem(tree.root, 8);
 // prettyPrint(tree.root);
+// console.log(tree.height(8));
 
-console.log(tree.height(8));
+debugger;
+console.log(
+  tree.postOrderForEach((item) => {
+    console.log(item.data);
+  }),
+);
